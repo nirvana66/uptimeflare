@@ -32,7 +32,6 @@ jobs:
           else
             echo 'account_id='$ACCOUNT_ID >> $GITHUB_OUTPUT
           fi
-
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
@@ -41,16 +40,13 @@ jobs:
           npm install
           cd worker
           npm install
-
       - name: Build worker
         run: |
           cd worker
           npx wrangler deploy src/index.ts --outdir dist --dry-run
-
       - name: Build page
         run: |
           npx @cloudflare/next-on-pages
-
       - name: Deploy using Terraform
         # We're using terraform for first-time setup here,
         # since we didn't setup a remote backend to store state,
